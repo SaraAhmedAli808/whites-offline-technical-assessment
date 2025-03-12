@@ -1,0 +1,54 @@
+<odoo>
+   <record id="view_sales_pivot_report" model="ir.ui.view">
+        <field name="name">sales.pivot.report</field>
+        <field name="model">sales.pivot.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales Pivot Report">
+                <field name="product_name" type="col"/>
+                <field name="order_date" type="row"/>
+                <field name="order_quantity" type="measure"/>
+                <field name="total_order_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_sales_graph_report" model="ir.ui.view">
+        <field name="name">sales.graph.report</field>
+        <field name="model">sales.pivot.report</field>
+        <field name="arch" type="xml">
+            <graph string="Sales Graph Report" type="bar">
+                <field name="month" type="row"/>
+                <field name="order_quantity" type="measure"/>
+                <field name="total_order_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_sales_tree_report" model="ir.ui.view">
+        <field name="name">sales.tree.report</field>
+        <field name="model">sales.pivot.report</field>
+        <field name="arch" type="xml">
+            <tree string="Sales List Report">
+                <field name="product_name"/>
+                <field name="month"/>
+                <field name="order_quantity"/>
+                <field name="total_order_amount"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+    <record id="action_sales_pivot_report" model="ir.actions.act_window">
+        <field name="name">Sales Pivot Report</field>
+        <field name="res_model">sales.pivot.report</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="context">{'group_by': ['order_date']}</field>
+
+    </record>
+
+    <menuitem id="menu_sales_pivot_report" name="Sales Pivot Report"
+        parent="sale.menu_sale_report"
+        action="action_sales_pivot_report"/>
+</odoo>
